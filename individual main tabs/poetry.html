@@ -199,6 +199,12 @@
       background: #ffffff;
     }
 
+    .contents-search input:focus {
+      border-color: #be185d;
+      outline: 2px solid #be185d;
+      outline-offset: 2px;
+    }
+
     .contents-search button {
       padding: 7px 12px;
       color: #0f172a;
@@ -444,6 +450,38 @@
       background: transparent;
       cursor: pointer;
       font-size: 1.4rem;
+    }
+
+    .passcode-form {
+      display: grid;
+      gap: 10px;
+    }
+
+    .passcode-form label { font-weight: bold; }
+
+    .passcode-form input {
+      box-sizing: border-box;
+      width: 100%;
+      padding: 9px;
+      border: 2px solid #bfdbfe;
+      border-radius: 6px;
+      font: inherit;
+    }
+
+    .passcode-form button {
+      padding: 8px 12px;
+      border: 2px solid #bfdbfe;
+      border-radius: 6px;
+      background: #dbeafe;
+      font: inherit;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    .passcode-error {
+      min-height: 1em;
+      margin: 0;
+      color: #b42355;
     }
 
     @media (max-width: 700px) {
@@ -1760,12 +1798,26 @@ Which is why, I’ve vowed to let you go.
       <p id="popup-title">to be written...</p>
     </div>
   </div>
+  <div class="popup" id="passcode-popup" role="dialog" aria-modal="true" aria-labelledby="passcode-title">
+    <div class="popup-box">
+      <button class="popup-close" id="passcode-close" type="button" aria-label="Close">&times;</button>
+      <form class="passcode-form" id="passcode-form">
+        <p id="passcode-title">This poem is locked</p>
+        <label for="entry-passcode">Passcode for Entry <span id="protected-entry-number"></span></label>
+        <input id="entry-passcode" type="password" autocomplete="current-password" required>
+        <p class="passcode-error" id="passcode-error" role="alert"></p>
+        <button type="submit">Unlock poem</button>
+      </form>
+    </div>
+  </div>
   <script>
     const main = document.querySelector("main");
     const backToTop = main.querySelector(".back-to-top");
     const poemEntries = [...main.querySelectorAll(".poem-entry")];
     const entryFragment = document.createDocumentFragment();
     const availableEntries = {};
+    const protectedEntryPasscodes = new Map([[40, "4me4me"], [3, "4me4me"], [12, "4me4me"], [21, "4me4me"]]);
+    const unlockedEntries = new Set();
     const seenEntryIds = new Set();
 
     function makeCollapsibleEntry(entry) {
@@ -1814,18 +1866,86 @@ Which is why, I’ve vowed to let you go.
 
     const popup = document.getElementById("not-written-popup");
     const searchInput = document.getElementById("entry-search");
+    const passcodePopup = document.getElementById("passcode-popup");
+    const passcodeInput = document.getElementById("entry-passcode");
+    const passcodeError = document.getElementById("passcode-error");
+    let pendingEntry = null;
+    let pendingScroll = false;
+    let previouslyFocusedElement = null;
+
+    function requestEntryAccess(number, entry, shouldScroll) {
+      if (!protectedEntryPasscodes.has(number) || unlockedEntries.has(number)) return true;
+
+      pendingEntry = entry;
+      pendingScroll = shouldScroll;
+      previouslyFocusedElement = document.activeElement;
+      document.getElementById("protected-entry-number").textContent = number;
+      passcodeInput.value = "";
+      passcodeError.textContent = "";
+      passcodePopup.classList.add("is-open");
+      passcodeInput.focus();
+      return false;
+    }
+
+    Object.entries(availableEntries).forEach(([number, entryId]) => {
+      const entryNumber = Number(number);
+      if (!protectedEntryPasscodes.has(entryNumber)) return;
+
+      const entry = document.getElementById(entryId);
+      entry.addEventListener("toggle", () => {
+        if (!entry.open) unlockedEntries.delete(entryNumber);
+      });
+      entry.querySelector(":scope > summary").addEventListener("click", (event) => {
+        if (unlockedEntries.has(entryNumber)) return;
+        event.preventDefault();
+        requestEntryAccess(entryNumber, entry, false);
+      });
+    });
 
     function openEntry(number) {
       const entryId = availableEntries[number];
       if (entryId) {
-        popup.classList.remove("is-open");
         const entry = document.getElementById(entryId);
+        if (!requestEntryAccess(Number(number), entry, true)) return;
+        popup.classList.remove("is-open");
         entry.open = true;
         requestAnimationFrame(() => entry.scrollIntoView({ behavior: "auto", block: "center" }));
         return;
       }
       popup.classList.add("is-open");
     }
+
+    function closePasscodePopup() {
+      passcodePopup.classList.remove("is-open");
+      pendingEntry = null;
+      if (previouslyFocusedElement) previouslyFocusedElement.focus();
+    }
+
+    document.getElementById("passcode-form").addEventListener("submit", (event) => {
+      event.preventDefault();
+      const entryNumber = Number(document.getElementById("protected-entry-number").textContent);
+      if (passcodeInput.value !== protectedEntryPasscodes.get(entryNumber)) {
+        passcodeError.textContent = "Incorrect passcode.";
+        passcodeInput.select();
+        return;
+      }
+
+      unlockedEntries.add(entryNumber);
+      const entry = pendingEntry;
+      const shouldScroll = pendingScroll;
+      closePasscodePopup();
+      if (!entry) return;
+      entry.open = true;
+      if (shouldScroll) requestAnimationFrame(() => entry.scrollIntoView({ behavior: "auto", block: "center" }));
+    });
+
+    document.getElementById("passcode-close").addEventListener("click", closePasscodePopup);
+    passcodePopup.addEventListener("click", (event) => {
+      if (event.target === passcodePopup) closePasscodePopup();
+    });
+    passcodePopup.addEventListener("keydown", (event) => {
+      if (event.key === "Escape") closePasscodePopup();
+    });
 
     document.getElementById("entry-search-button").addEventListener("click", () => {
       const number = Number(searchInput.value);
