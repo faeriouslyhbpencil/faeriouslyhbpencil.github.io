@@ -1,0 +1,183 @@
+@font-face {
+  font-family: "Friends Z";
+  src: url("fonts/FriendsZ-Regular.ttf") format("truetype");
+  font-display: swap;
+}
+
+body {
+  background-image: url("rainbowgingham.jpeg") !important;
+  background-repeat: repeat !important;
+  background-attachment: fixed !important;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  align-items: flex-start;
+  column-gap: 36px;
+  row-gap: 0;
+  min-height: 100vh;
+  box-sizing: border-box;
+}
+
+.site-header {
+  display: flex;
+  flex: 0 0 100%;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  padding: 12px 0 18px;
+  box-sizing: border-box;
+}
+
+.site-header #letters {
+  display: inline-flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 0;
+  margin: 0;
+  padding: 0;
+  flex-wrap: nowrap;
+  font-family: "Friends Z", cursive;
+}
+
+.site-header #letters .letter-box {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 1.05em;
+  height: 1.05em;
+  margin: 0;
+  padding: 0;
+  flex-shrink: 0;
+  color: #5ed9ff;
+  font-family: "Friends Z", cursive;
+  font-size: clamp(2.2rem, 8vw, 7.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: 1px;
+  text-shadow: none;
+  -webkit-text-stroke: 4px rgba(90, 103, 177, 0.18);
+}
+
+main {
+  position: relative;
+  width: min(760px, 100%);
+  margin: 0 !important;
+  box-sizing: border-box;
+  border-radius: 0 !important;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+}
+
+.cat-divider {
+  display: block;
+  width: 696px;
+  max-width: 100%;
+  height: auto;
+  margin: 3px auto;
+}
+
+main::before {
+  content: "";
+  position: absolute;
+  inset: -18px -14px -24px -13px;
+  background: radial-gradient(circle, #ff95ce 8px, transparent 9px);
+  background-size: 20px 20px;
+  border: 4px solid #ff95ce;
+  border-radius: 28px;
+  box-sizing: border-box;
+  z-index: -1;
+}
+
+.logo,
+h1,
+.contents h2,
+.poem-title,
+.post-section h2 {
+  font-family: "Friends Z", cursive !important;
+  font-weight: 900;
+  -webkit-text-stroke: 0.4px currentColor;
+}
+
+.logo {
+  margin-bottom: 24px !important;
+}
+
+.nav-layout {
+  margin-bottom: 28px !important;
+}
+
+h1 {
+  font-size: 2em !important;
+  margin-block-start: 0.67em !important;
+  margin-block-end: 0.67em !important;
+}
+
+.nav-layout {
+  gap: 2px !important;
+  width: 100%;
+  justify-items: center;
+}
+
+.nav-item {
+  width: 100%;
+  justify-content: flex-start;
+}
+
+.nav-item img {
+  display: block;
+  width: 60px !important;
+  height: 60px !important;
+  object-fit: contain;
+}
+
+.nav-item:nth-child(1) img { transform: scale(1.3); }
+.nav-item:nth-child(3) img { transform: scale(1.35); }
+.nav-item:nth-child(5) img { transform: scale(1.75); }
+
+.ipod-container {
+  width: 240px;
+  flex: 0 0 240px;
+  margin-top: 0;
+  padding: 15px;
+  box-sizing: content-box;
+  background: #e0e0e0;
+  border-radius: 20px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.3);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  user-select: none;
+}
+
+.ipod-screen {
+  width: 100%;
+  height: 180px;
+  box-sizing: border-box;
+  padding: 10px;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  text-align: center;
+  background: #ffffff;
+  border: 3px solid #333333;
+  border-radius: 8px;
+}
+
+.screen-header { color: #666666; font-size: 11px; font-weight: bold; letter-spacing: 1px; text-transform: uppercase; }
+.album-art { width: 80px; height: 80px; object-fit: cover; border-radius: 6px; }
+.track-info { width: 100%; }
+.song-title { overflow: hidden; color: #111111; font-size: 13px; font-weight: bold; text-overflow: ellipsis; white-space: nowrap; }
+.artist-name { margin-top: 2px; color: #555555; font-size: 11px; }
+.click-wheel { position: relative; width: 150px; height: 150px; margin: 20px auto 5px; background: #ffffff; border-radius: 50%; box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.15), 0 2px 4px rgba(0, 0, 0, 0.1); }
+.wheel-btn { position: absolute; border: 0; background: none; color: #888888; cursor: pointer; font-size: 11px; font-weight: bold; }
+.wheel-btn:hover { color: #111111; }
+.wheel-btn.menu { top: 10px; left: 50%; transform: translateX(-50%); }
+.wheel-btn.prev { top: 50%; left: 8px; transform: translateY(-50%); }
+.wheel-btn.next { top: 50%; right: 8px; transform: translateY(-50%); }
+.wheel-btn.play-pause { bottom: 10px; left: 50%; transform: translateX(-50%); }
+.center-button { position: absolute; top: 50%; left: 50%; width: 50px; height: 50px; border: 1px solid #cccccc; border-radius: 50%; background: #e8e8e8; cursor: pointer; transform: translate(-50%, -50%); }
+
+@media (max-width: 700px) {
+  body { flex-direction: column; align-items: center; }
+  .site-header { flex-basis: auto; }
+  .ipod-container { flex-basis: auto; margin-top: 16px; }
+}

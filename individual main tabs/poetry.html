@@ -1,0 +1,1858 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Poetry | HB pencil</title>
+  <style>
+    @font-face {
+      font-family: "Friends Z";
+      src: url("../fonts/FriendsZ-Regular.ttf") format("truetype");
+      font-display: swap;
+    }
+
+    body {
+      background: black;
+      text-align:center;
+    }
+    .container {
+      position:relative;
+      background: white;
+      padding:50px;
+    }
+    .container::after {
+      position:absolute;
+      bottom: -50px;
+      left: 0px;
+      width: 100%;
+      content:" ";
+      background:
+      radial-gradient(circle at 50% 0%, white 25%, #535353 26%, gray 40%);
+      background-color: gray;
+      background-size:50px 100px;
+      height:50px;
+      background-repeat: repeat-x;
+    }
+    .next-container {
+      background: gray;
+      padding:50px;
+      margin-bottom:50px;
+    }
+
+    body {
+      background-image: url('../rainbowgingham.jpeg');
+      background-repeat: repeat;
+      background-attachment: fixed;
+      font-family: 'Courier New', Courier, monospace;
+      color: #222222;
+      margin: 0;
+      padding: 20px 10px 20px 5px;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      gap: 36px;
+      min-height: 100vh;
+    }
+
+    main {
+      position: relative;
+      max-width: 760px;
+      width: 100%;
+      background-color: rgba(255, 255, 255, 0.85);
+      padding: 25px 20px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+      box-sizing: border-box;
+      text-align: left;
+      border: 4px solid #ff95ce;
+      margin: 0;
+    }
+
+    main::before {
+      content: '';
+      position: absolute;
+      top: -18px;
+      left: -13px;
+      right: -14px;
+      bottom: -24px;
+      background: radial-gradient(circle, #ff95ce 8px, transparent 9px);
+      background-size: 20px 20px;
+      z-index: -1;
+      border-radius: 28px;
+    }
+
+    .logo {
+      color: #5ed9ff;
+      font-family: "Friends Z", cursive;
+      font-size: 3rem;
+      font-weight: 900;
+      -webkit-text-stroke: 1px currentColor;
+      letter-spacing: 2px;
+      margin-top: 10px;
+      margin-bottom: 0;
+      text-transform: uppercase;
+      text-align: left;
+    }
+
+    .nav-layout {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 2px;
+      width: 100%;
+      margin-bottom: 10px;
+      justify-items: center;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-start;
+      width: 100%;
+      text-align: center;
+      text-decoration: none;
+    }
+
+    .nav-item img {
+      display: block;
+      width: 60px;
+      height: 60px;
+      object-fit: contain;
+      margin-bottom: 6px;
+    }
+
+    .nav-item[href="../index.html"] img { transform: scale(1.3); }
+    .nav-item[href="projects.html"] img { transform: scale(1.35); }
+    .nav-item[href="posts.html"] img { transform: scale(1.75); }
+
+    .nav-item span {
+      color: #5ed9ff;
+      font-weight: bold;
+      font-size: 0.95rem;
+    }
+
+    .nav-item:hover span { text-decoration: none; }
+
+    h1 {
+      font-family: "Friends Z", cursive;
+      color: #1e293b;
+      font-size: clamp(2.2rem, 4vw, 3.2rem);
+      font-weight: 900;
+      margin: 12px 0 8px;
+      -webkit-text-stroke: 0.6px currentColor;
+    }
+
+    a {
+      color: #159dcc;
+      font-weight: bold;
+      text-decoration: none;
+    }
+
+    .contents {
+      background: #dbeafe;
+      border: 2px solid #bfdbfe;
+      border-radius: 12px;
+      padding: 14px 16px;
+      margin: 18px 0 20px;
+    }
+
+    .contents h2 {
+      margin: 0;
+      font-family: "Friends Z", cursive;
+      color: #1e293b;
+      font-size: 1.2rem;
+      -webkit-text-stroke: 0.4px currentColor;
+    }
+
+    .contents-heading {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 4px 12px;
+      margin-bottom: 10px;
+    }
+
+    .contents-legend {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      color: #64748b;
+      font-size: 0.65rem;
+      white-space: nowrap;
+    }
+
+    .contents-search {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      margin-bottom: 0;
+    }
+
+    .contents-search input {
+      width: 100%;
+      min-width: 0;
+      padding: 8px 10px;
+      font: inherit;
+      box-sizing: border-box;
+      border: 1px solid #93c5fd;
+      border-radius: 8px;
+      background: #ffffff;
+    }
+
+    .contents-search button {
+      padding: 7px 12px;
+      color: #0f172a;
+      background: #5ed9ff;
+      border: none;
+      border-radius: 8px;
+      font: inherit;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .poem-entry {
+      background: #dbeafe;
+      border: 2px solid #bfdbfe;
+      border-radius: 14px;
+      padding: 10px 12px 4px;
+      box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
+      margin-top: 8px;
+    }
+
+    .poem-entry-header {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      align-items: center;
+      gap: 8px;
+      margin-bottom: 8px;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    .poem-entry-header::-webkit-details-marker { display: none; }
+
+    .poem-entry-title-group {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      min-width: 0;
+    }
+
+    .poem-entry-heart {
+      flex: 0 0 auto;
+      color: #ec4899;
+      font-size: 1.2rem;
+    }
+
+    .poem-entry-heart::before { content: "♡"; }
+    .poem-entry[open] .poem-entry-heart::before { content: "♥"; }
+
+    .poem-entry-metadata {
+      display: grid;
+      justify-items: end;
+      gap: 4px;
+    }
+
+    .entry-number {
+      margin: 0;
+      color: #475569;
+      font-size: 0.72rem;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+    }
+
+    .poem-title {
+      margin: 0;
+      min-width: 0;
+      font-family: "Friends Z", cursive;
+      color: #1e293b;
+      font-size: clamp(1.4rem, 2vw, 2rem);
+      font-weight: 900;
+      -webkit-text-stroke: 0.4px currentColor;
+    }
+
+    .poem-date {
+      margin: 0;
+      color: #475569;
+      font-size: 0.75rem;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+    }
+
+    .poem-intro {
+      margin: 0;
+      padding: 10px 16px 0;
+      line-height: 1.7;
+      font-family: 'Courier New', Courier, monospace;
+      text-align: left !important;
+      white-space: pre-line;
+    }
+
+    .back-to-top {
+      display: block;
+      width: fit-content;
+      margin: 8px auto 0;
+      padding: 5px 10px;
+      color: #159dcc;
+      border: 2px solid #159dcc;
+      border-radius: 6px;
+      text-decoration: none !important;
+      font-weight: bold;
+    }
+
+    .back-to-top:hover,
+    .back-to-top:visited,
+    .back-to-top:focus {
+      text-decoration: none !important;
+    }
+
+    .ipod-container {
+      width: 240px;
+      background: #e0e0e0;
+      border-radius: 20px;
+      padding: 15px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      user-select: none;
+      margin-top: 0;
+      flex-shrink: 0;
+    }
+
+    .ipod-screen {
+      width: 100%;
+      height: 180px;
+      background: #ffffff;
+      border: 3px solid #333;
+      border-radius: 8px;
+      box-sizing: border-box;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px;
+      text-align: center;
+      overflow: hidden;
+    }
+
+    .screen-header {
+      font-size: 11px;
+      font-weight: bold;
+      color: #666;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .album-art {
+      width: 80px;
+      height: 80px;
+      border-radius: 6px;
+      object-fit: cover;
+      box-shadow: 0 2px 5px rgba(0,0,0,0.2);
+    }
+
+    .track-info { width: 100%; }
+    .song-title {
+      font-size: 13px;
+      font-weight: bold;
+      color: #111;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .artist-name {
+      font-size: 11px;
+      color: #555;
+      margin-top: 2px;
+    }
+
+    .click-wheel {
+      width: 150px;
+      height: 150px;
+      background: #ffffff;
+      border-radius: 50%;
+      margin: 20px auto 5px auto;
+      position: relative;
+      box-shadow: inset 0 0 4px rgba(0,0,0,0.15), 0 2px 4px rgba(0,0,0,0.1);
+    }
+
+    .wheel-btn {
+      position: absolute;
+      background: none;
+      border: none;
+      font-weight: bold;
+      color: #888;
+      font-size: 11px;
+      cursor: pointer;
+      outline: none;
+    }
+
+    .wheel-btn:hover { color: #111; }
+    .wheel-btn.menu { top: 10px; left: 50%; transform: translateX(-50%); }
+    .wheel-btn.prev { top: 50%; left: 8px; transform: translateY(-50%); }
+    .wheel-btn.next { top: 50%; right: 8px; transform: translateY(-50%); }
+    .wheel-btn.play-pause { bottom: 10px; left: 50%; transform: translateX(-50%); }
+
+    .center-button {
+      width: 50px;
+      height: 50px;
+      background: #e8e8e8;
+      border-radius: 50%;
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      cursor: pointer;
+      border: 1px solid #ccc;
+    }
+
+    .center-button:active { background: #d0d0d0; }
+
+    main::before {
+      display: block;
+      border: 4px solid #ff95ce;
+      box-sizing: border-box;
+    }
+
+    .popup {
+      display: none;
+      position: fixed;
+      inset: 0;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: rgba(34, 34, 34, 0.35);
+    }
+
+    .popup.is-open { display: flex; }
+
+    .popup-box {
+      position: relative;
+      width: min(320px, 100%);
+      padding: 28px;
+      background: #ffffff;
+      border: 4px solid #ff95ce;
+      border-radius: 15px;
+      text-align: center;
+    }
+
+    .popup-close {
+      position: absolute;
+      top: 6px;
+      right: 10px;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+      font-size: 1.4rem;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        flex-direction: column;
+        align-items: center;
+      }
+      .nav-layout {
+        grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      }
+      .ipod-container {
+        margin-top: 16px;
+      }
+    }
+  </style>
+  <link rel="stylesheet" href="../nested-pages.css?v=home-wordmark">
+</head>
+<body id="top">
+  <header class="site-header">
+    <div id="letters" aria-label="HB pencil">
+      <div class="letter-box">H</div><div class="letter-box">B</div><div class="letter-box">p</div><div class="letter-box">e</div><div class="letter-box">n</div><div class="letter-box">c</div><div class="letter-box">i</div><div class="letter-box">l</div>
+    </div>
+  </header>
+  <main>
+    <img class="cat-divider" src="../cat-div.png" alt="">
+    <div class="nav-layout">
+      <a href="../index.html" class="nav-item"><img src="../main tab icons/seal.png" alt="Home"><span>Home</span></a>
+      <a href="about.html" class="nav-item"><img src="../main tab icons/star-button.png" alt="About"><span>About</span></a>
+      <a href="projects.html" class="nav-item"><img src="../main tab icons/nyan.png" alt="Projects"><span>Projects</span></a>
+      <a href="media.html" class="nav-item"><img src="../main tab icons/yellow-polka-button.png" alt="Media"><span>Media log</span></a>
+      <a href="posts.html" class="nav-item"><img src="../main tab icons/monkey.png" alt="Posts"><span>Posts</span></a>
+      <a href="poetry.html" class="nav-item"><img src="../main tab icons/flower-button.png" alt="Poetry"><span>Poetry</span></a>
+    </div>
+    <h1>Poetry</h1>
+    <section class="contents" aria-labelledby="contents-title">
+      <div class="contents-heading">
+        <h2 id="contents-title">Table of contents</h2>
+        <div class="contents-legend"><span class="poem-entry-heart" aria-hidden="true"></span><span>(click for more)</span></div>
+      </div>
+      <div class="contents-search">
+        <input id="entry-search" type="number" min="1" max="57" placeholder="Enter 1-57" aria-label="Search poem number">
+        <button type="button" id="entry-search-button">Go</button>
+      </div>
+      </section>
+
+       <div class="poem-entry" id="entry-57">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 57</p>
+          <h2 class="poem-title">Mystery</h2>
+        </div>
+        <p class="poem-date">2026/09/09</p>
+      </div>
+      <p class="poem-intro">Every single person is a mystery,
+To me, you were an empty map.
+As soon as I discovered a new island, I was on the prow for another.
+You seemed to be just as interested in me, perhaps even more so,
+But if that were truly the case,
+You would’ve stayed and explored - 
+Heart and soul.
+
+         <div class="poem-entry" id="entry-56">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 56</p>
+          <h2 class="poem-title">Trust</h2>
+        </div>
+        <p class="poem-date">2026/08/09</p>
+      </div>
+      <p class="poem-intro">How could your feelings for me change so fast? 
+You offered me the world in your palms, 
+And threw it in the mud.
+Even if you wanted to revisit in the future,
+It isn’t so easy to clean off the leftovers. 
+Your reasoning is like a jigsaw puzzle - impossible.
+Did you really care for me as much as you claimed? 
+My life was falling apart before my eyes,
+And you helped it crumble.
+
+   <div class="poem-entry" id="entry-55">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 55</p>
+          <h2 class="poem-title">Finale</h2>
+        </div>
+        <p class="poem-date">2026/07/09</p>
+      </div>
+      <p class="poem-intro">You let me go and though you won’t admit it,
+I could tell that you’d been lying in wait.
+One wrong word, a single faulty action, a lapse in judgment. 
+Our pendulum has fallen,
+And you no longer want anything to do with me.
+Every moment we shared, the intangible intimacy and the extreme sense of familiarity.
+You’ve lost me and I’ve also lost a part of myself.
+I had my qualms, but my feelings for you were stronger,
+So much so that I shrunk myself to fit in your box.
+Love shouldn’t feel that way, 
+You had two hearts, yours along with the one you decided to leave behind - 
+mine. 
+
+   <div class="poem-entry" id="entry-54">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 54</p>
+          <h2 class="poem-title">Face</h2>
+        </div>
+        <p class="poem-date">2026/03/08</p>
+      </div>
+      <p class="poem-intro">I’ve started at your face so much that I’ve lost count 
+You reel me in like candy does a child
+I yearn to discover whats been hidden from the world
+It’s an insatiable desire
+I could hear you talk for days on end
+Your personality brings me solace 
+How could i possibly run out of things to adore? 
+ 
+
+   <div class="poem-entry" id="entry-53">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 53</p>
+          <h2 class="poem-title">Heave and sigh</h2>
+        </div>
+        <p class="poem-date">2026/20/07</p>
+      </div>
+      <p class="poem-intro">I truly don’t know how I should feel. 
+Conflicted doesn’t begin to describe my heart.
+I care for you, 
+So much so that my chest hurts.
+I’ve said it before, 
+And I’ll say it again. 
+I feel like I like you more than you do me.
+I’m willing to live with that,
+But if I’m reaching out then please,
+Meet me halfway. 
+Nearly my entire deck has been laid out for your eyes alone.
+I don’t know whether I’m bothering you or you truly enjoy my incessant presence. 
+I hope that you won’t leave me,
+But as you say so very often,
+Neither of us can predict the future. 
+I’d like to believe that I’ll always have you near,
+But if not,
+Then I will still cherish you from afar — 
+No matter how many tears fall. 
+
+         <div class="poem-entry" id="entry-52">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 52</p>
+          <h2 class="poem-title">Memory</h2>
+        </div>
+        <p class="poem-date">2026/13/07</p>
+      </div>
+      <p class="poem-intro">Time may pass,
+And my memories may fade, 
+My feelings may alter, 
+And a once familiar face will become but a mere stranger.
+Everything depends on perspective,
+But I must let you know, 
+Even if I begin to despise you like a mouse would a cat,
+My heart will never forget. 
+The last stage of my love will be to wish you well,
+Even if it isn’t by my side. 
+
+
+        <div class="poem-entry" id="entry-52">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 52</p>
+          <h2 class="poem-title">Memory</h2>
+        </div>
+        <p class="poem-date">2026/13/07</p>
+      </div>
+      <p class="poem-intro">Time may pass,
+And my memories may fade, 
+My feelings may alter, 
+And a once familiar face will become but a mere stranger.
+Everything depends on perspective,
+But I must let you know, 
+Even if I begin to despise you like a mouse would a cat,
+My heart will never forget. 
+The last stage of my love will be to wish you well,
+Even if it isn’t by my side. 
+
+
+          <div class="poem-entry" id="entry-51">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 51</p>
+          <h2 class="poem-title">Bold</h2>
+        </div>
+        <p class="poem-date">2026/03/05</p>
+      </div>
+      <p class="poem-intro">Regret is not something that I’d normally ascribe to anything.
+I cherish both you and the experience we shared together but,
+My faith and my heart are at odds.
+You are dear to me, but my creator is dearest.
+I like you more and more,
+I want you to be promised to me, and me to you.
+I’m going against all that I stand for and I don’t know whether I’m right or wrong.
+I yearn for your honesty, raw and unwavering. 
+I’ve been more than bold, 
+Now it’s up to you.
+
+          <div class="poem-entry" id="entry-50">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 50</p>
+          <h2 class="poem-title">Fragile</h2>
+        </div>
+        <p class="poem-date">2026/25/06</p>
+      </div>
+      <p class="poem-intro">May the pain inside of me fade as easily as the loved ones who caused that pain.
+Trust is a delicate thing; you let it slip through careless words. 
+You’ve destroyed something so sacred.
+Is there a way to piece back together the fragile pieces of a porcelain plate? 
+Carry the weight of your mistake;
+Realize that you’ve lost me. 
+
+          <div class="poem-entry" id="entry-49">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 49</p>
+          <h2 class="poem-title">Shoulders</h2>
+        </div>
+        <p class="poem-date">2026/09/06</p>
+      </div>
+      <p class="poem-intro">The sorrow in my heart hasn’t faded simply because I no longer speak of it, 
+It’s just been resting for so long that my shoulders grew accustomed to its weight.
+It often nestles deeper into my chest and forces tears out my eyes.
+My battle wounds remain invisible to the untrained eye. 
+That pain acts as my quiet reminder – some wounds never disappear.
+They become liveable. 
+
+          <div class="poem-entry" id="entry-48">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 48</p>
+          <h2 class="poem-title">Rain</h2>
+        </div>
+        <p class="poem-date">2026/09/06</p>
+      </div>
+      <p class="poem-intro">You must be rain,
+Your presence allows my soul to bloom. 
+You’ve freed me from my drought driven land, 
+You weren’t meant to stay. 
+Not because of who you are, 
+But because you give way to light. 
+Stay for a while and pour your desolate heart in my fields, 
+You’re only here for a while,
+I’ll be waiting for a rainbow. 
+
+
+          <div class="poem-entry" id="entry-47">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 47</p>
+          <h2 class="poem-title">Liar</h2>
+        </div>
+        <p class="poem-date">2026/05/06</p>
+      </div>
+      <p class="poem-intro">I fear there is something I failed to mention. 
+Here’s my truth – I’m not over you. 
+I ramble and joke a lot but my endless smiles and rosy cheeks don’t. 
+They speak what I’m unable to say.
+Perhaps for fear of rejection?
+This will cut deep.
+I’m like a bird, building a nest I know will be destroyed by the wind.
+I’ll continue to lie about my feelings, 
+not because they’re a secret, 
+but because the feeling will never get old.
+
+          <div class="poem-entry" id="entry-46">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 46</p>
+          <h2 class="poem-title">Stability</h2>
+        </div>
+        <p class="poem-date">2026/05/06</p>
+      </div>
+      <p class="poem-intro">I’m free falling into a future of my own design.
+Able-bodied and a mind that no longer ponders on the worst outcome:
+I’m sick of turning fiction into my ideals; 
+It isn’t possible to live through another’s imagination. 
+Naive and volatile - 
+I’ll proudly claim both titles because I understand that my disagreeing doesn’t turn fact into falsity. 
+I’ll wait - ponder what best suits me 
+The ball is in my court; 
+I’m stable.
+
+          <div class="poem-entry" id="entry-45">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 45</p>
+          <h2 class="poem-title">Tears</h2>
+        </div>
+        <p class="poem-date">2026/01/06</p>
+      </div>
+      <p class="poem-intro">Melancholy.
+That’s a word for many feelings,
+but none are inconsequential. 
+Salty and bitter,
+That’s what my tears are.
+They share the same taste as the ocean; how could my cries be insignificant when life mirrors them.
+Profound and visceral. 
+That is what I am and my tides do have meaning.
+My creator placed salt in my tears and in the ocean,
+How dare you deny my emotions when even God has shown the depth they can hold.
+I’ll cry and cry, 
+I’ve gotten so good at it.
+My feelings are real, 
+take note of it. 
+ 
+
+          <div class="poem-entry" id="entry-44">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 44</p>
+          <h2 class="poem-title">My fable</h2>
+        </div>
+        <p class="poem-date">2026/25/05</p>
+      </div>
+      <p class="poem-intro">I’m passing a threshold, the likes of which I know has no point of return 
+I may be in too deep or slightly overstepping but, 
+I know my words carry weight. 
+I’m drunk off the smell of flowers and the sweltering sun. 
+I’m sinking, though im not sure if this is fact. 
+My insides are raw and my heart is hollow. 
+Have I disappointed all those around me?
+What ever happened to being the best version of myself?
+Sticky fingers and a kiss only the summer could’ve bestowed upon me.
+I hardly know myself; rightfully so.
+Logic doesn’t lie behind my actions so take them as you will,
+You can say you know me, 
+That matter of perspective is a fable. 
+
+          <div class="poem-entry" id="entry-43">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 43</p>
+          <h2 class="poem-title">Sleep</h2>
+        </div>
+        <p class="poem-date">2026/24/05</p>
+      </div>
+      <p class="poem-intro">The whole world is asleep 
+I’m certain that you also are.
+Warm wind blows on my cheeks,
+I’m once again, blissfully reminded that summer will be at my door in haste. 
+I can’t help but wonder if my heart will wander the world for yet another season?
+My ribs act as a cage,
+My inbuilt prison made of bone bars. 
+They’re meant to keep me from loving too hard, or feeling too freely,
+But all prisons eventually rust and fail,
+That must be why I sometimes ache like something inside me is trying to break free.
+I was wondering if you were asleep like the rest of the world,
+Or perhaps you aren’t,
+In that case,
+Stay; witness this night of freedom. 
+
+          <div class="poem-entry" id="entry-42">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 42</p>
+          <h2 class="poem-title">Permanence</h2>
+        </div>
+        <p class="poem-date">2026/05/05</p>
+      </div>
+      <p class="poem-intro">You were never permanent, 
+Always seasonal.
+I shouldn’t have assumed you’d stay by my side forever,
+I should’ve ended the cycle. 
+You’re not fit to survive the cold of winter,
+You belong to summer,
+That’s where I should’ve left you. 
+Drip of rain and sound of the birds, 
+You thrive in that stretch, 
+Keeping you near is akin to a curse. 
+You can’t withstand the harsh blows of the wind nor the knee-deep snow.
+We both knew it,
+But neither wanted to let go. 
+
+       <div class="poem-entry" id="entry-41">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 41</p>
+          <h2 class="poem-title">I'll search</h2>
+        </div>
+        <p class="poem-date">2026/03/05</p>
+      </div>
+      <p class="poem-intro">One day, I’ll find that feeling I’ve been searching for.
+The tang of blood and the other worldly sense of confusion.
+The drip, drip, drip, of ice cream on a hot summers day,
+And the beads of sweat that form on your forehead after burning underneath the sun.
+I don’t what exactly it is that I’m searching for.
+I want to feel,
+I want to live,
+And most importantly, I want to experience.
+Reading can be vivid but it’s not enough to become myself. 
+I don’t know how long it’ll take,
+Or how many sleepless nights I’ll endure,
+But I’ll keep searching,
+I’ll scour the globe to find that feeling I’ve never experienced. 
+
+    <div class="poem-entry" id="entry-40">
+        <div class="poem-entry-header">
+            <div>
+        <p class="entry-number">Entry 40</p>
+            <h2 class="poem-title">Fervent</h2>
+            </div>
+            <p class="poem-date">2026/31/04</p>
+        </div>
+        <p class="poem-intro">Why is it that I’m so desperate for love?
+I want to speak and be heard;
+understood fully. 
+I don’t know why I seek it out so fervently –  My detrimental flaw. 
+I want to be loved - so badly that I don’t necessarily care about who that person is.
+I’m chasing after someone who doesn’t exist. 
+I can’t figure out why I’m so desperate for love, 
+It’s a craving – one with an insatiable appetite. 
+I can distinguish right from wrong,
+Yet I let myself fall for anyone. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-39">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 39</p>
+          <h2 class="poem-title">Life</h2>
+        </div>
+        <p class="poem-date">2026/29/04</p>
+      </div>
+      <p class="poem-intro">I’d rather live my life believing in love and fairytale things even if I appear a fool. 
+A leap of faith carries boundless potential;
+Believing has never been a plague.
+My heart is gentle, I’m well aware.
+I hold onto criticism and let it all slowly fester. 
+I’m well aware that the world can be cruel.
+Call me naive if that’s how you perceive me - to love is to live,
+My spirit will remain soft,
+Especially now that I have you in it. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-38">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 38</p>
+          <h2 class="poem-title">Hasna</h2>
+        </div>
+        <p class="poem-date">2026/22/04</p>
+      </div>
+      <p class="poem-intro">I know that I shouldn’t be mean to myself, 
+I am all that I really have.
+I love, love, love me.
+I may stare in the mirror for too long and dislike what I see but I also know that deep down,
+It’s me. 
+I let my hair fly freely
+I care and I feel and I breathe and I smile.
+My name is Hasna,
+Call me Haseena because all I do is laugh. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-37">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 37</p>
+          <h2 class="poem-title">Listen</h2>
+        </div>
+        <p class="poem-date">2026/20/04</p>
+      </div>
+      <p class="poem-intro">You want to listen to me talk for hours on end, 
+but you dont really want me. 
+I’ve heard you say it far too many times. 
+You enjoy hearing me speak about any and everything,
+but you don’t even “like” me.
+We’re not friends,
+but we’re also not anything else. 
+Why is it that I’ve been made to feel this way?
+I’ve said that I no longer care,
+I’m only being half-honest. 
+I allowed myself to be vulnerable and showed you parts of my mind which have been privy to all,
+Yet we’re still nothing. 
+I’ve had it, 
+I want you to feel hurt back. 
+I’m too much of a pushover to actually cause you any harm. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-36">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 36</p>
+          <h2 class="poem-title">Careless</h2>
+        </div>
+        <p class="poem-date">2026/20/04</p>
+      </div>
+      <p class="poem-intro">You seem to think that you’re more important than you really are. 
+I am a product of my environment and the creation of all those I’ve met. 
+I once said that I am the way I am because I learnt love through you,
+but I’d like to redefine that statement.
+Young and volatile. 
+That’s what I was. 
+I understand you now. 
+You enjoy speaking with me, but I would never be your first option. 
+I’m done lying around waiting for you to change your mind. 
+You flirt and feign innocence,
+pretend to be unaware of what you’re saying and watering it down to “friends” when you know we aren’t.
+You asked me if I’ve begun to hate you,
+I said no but I think that we’re both aware of the truth. 
+I’ll lie to your face now and feel no remorse.
+After all, isn’t that what you’ve been doing to me all along?    
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-35">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 35</p>
+          <h2 class="poem-title">Unconditional</h2>
+        </div>
+        <p class="poem-date">2026/20/04</p>
+      </div>
+      <p class="poem-intro">And if love ever decides to find me again, I pray that it’s someone who sees and accepts me for who I am.
+If love ever decides to find me again, I dream that I won’t have to shrink who I am to please you.
+When love finds me again, I hope that I won’t have to change to fit your ideals.
+Malleable is the opposite of what I am.
+Explosive and expressive,
+Wait until I absorb you into the madness that is my mind. 
+Love will find me again, 
+the only exception is that this time,
+I won’t be swayed.
+You won’t find me living a ruse. 
+
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-34">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 34</p>
+          <h2 class="poem-title">Company</h2>
+        </div>
+        <p class="poem-date">2026/19/04</p>
+      </div>
+      <p class="poem-intro">Please hold me tighter.
+You are sticky fingers coated in ice cream on a hot summers day 
+And the red flush after laying out in the sun.
+You smell alive, 
+The thrill of loneliness, I’m getting too close. 
+I feel like I’m falling behind. 
+Don’t run to the finish line yet,
+My life is still just beginning.
+Please keep me company.
+I won’t be honest now - 
+I wish we could go back to the way things used to be. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-33">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 33</p>
+          <h2 class="poem-title">Years</h2>
+        </div>
+        <p class="poem-date">2026/17/04</p>
+      </div>
+      <p class="poem-intro">Ten years from now when I’ll pass you in the street, will you still remember me?
+Tick, tick, tick.
+Do you hear the clock of our lives giving way to the passage of time? 
+When you’ll pass me by in the street ten years from now, 
+Will you think me the same person I was when you knew me?
+What I knew was surface level, 
+And perhaps you, even less. 
+I’d like to believe that the white rabbit won’t pass me by but it’s inevitable. 
+My future lies in the hands of uncertainty and doubt. 
+I won’t react when we see each other on the street ten years from now,
+I know that our red strings weren’t tied together by fate. 
+Don’t look for the glimmer that shines within my eyes,
+Or the big cheeky smile I often throw out.
+When we meet in the street ten years from now,
+I won’t know you, 
+And you won’t know me.
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-32">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 32</p>
+          <h2 class="poem-title">Sorry not sorry</h2>
+        </div>
+        <p class="poem-date">2026/11/04</p>
+      </div>
+      <p class="poem-intro">The more we speak, the less I like you.
+Disillusionment.  
+I guess it really was infatuation.  
+Thump, thump, thump
+My heart used to race, now it beats steadily in place.
+I used to care so much, 
+that’s what made me cut my hair. 
+It’s been said it holds memories. 
+I hated the constant reminders of it, and the way you knew I loved it so dearly. 
+It’s now apparent that those feelings were past due.
+The less I hear from you, the better I feel.
+You act as a ghost limb and serve no purpose. 
+Call it exposure therapy if you will, 
+Even though I’ve never admitted it, 
+I’m glad to know that you were right,
+Especially in expressing that my feelings for you would grow cold. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-31">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 31</p>
+          <h2 class="poem-title">Joyous</h2>
+        </div>
+        <p class="poem-date">2026/09/04</p>
+      </div>
+      <p class="poem-intro">I’m more than happy to say that you were just a thorn in my side
+I very much believed you to be my moon
+But now,
+You no longer serve as my gravity.
+I’m more than joyous to say that I don’t care for you,
+I believed I did at one point but you know,
+Fickle is a teenage heart. 
+I can’t even begin to tell you how many years I’ve wasted pining after you.
+A waste of time, 
+Truly.
+I would never regret feeling for you,
+But as of now, and hopefully forever,
+I don’t want or need you. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-30">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 30</p>
+          <h2 class="poem-title">Bloom</h2>
+        </div>
+        <p class="poem-date">2026/07/04</p>
+      </div>
+      <p class="poem-intro">Youre the scar i keep picking at to prove that it once bled. 
+Engulf me in the flames of your personality,
+I dont know what exactly it is about you.
+Kiss away the wounds you’ve left in my heart,
+Bottle the tears ive shed over you and use them to feed the world.
+I’m like a flower who’s begun to bloom right after the last fall of snow. 
+You know how I feel about you,
+That’s probably why you decided to tear my reborn stems from the root. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-29">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 29</p>
+          <h2 class="poem-title">Sky</h2>
+        </div>
+        <p class="poem-date">2026/07/04</p>
+      </div>
+      <p class="poem-intro">Sweep me up with the wind.
+Lift my eyes to the sky.
+Guide me with your melancholy words.
+I promise you, they no longer hurt.
+Love.
+Love me till you can no longer tell my head from my feet.
+Breathe.
+Breathe me till it’s all that you know. 
+Seek.
+Seek me out even when I’m not my best self.
+I understand compromise,
+That is something I’m willing to do.
+Sweep me off my feet,
+And let me fall into you. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-28">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 28</p>
+          <h2 class="poem-title">Someone</h2>
+        </div>
+        <p class="poem-date">2026/06/04</p>
+      </div>
+      <p class="poem-intro">I want someone who will love me with my hair behind my ears,
+And my mismatched socks. 
+To try their best to understand me, 
+And the way my brain works.
+My love for nature and all the different art forms.
+Appreciate the imperfections on my face, and the split ends in my hair.
+Know me, 
+and know me fully. 
+To be loved is to be known,
+I’ll show you my soul in exchange for yours.
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-27">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 27</p>
+          <h2 class="poem-title">Love</h2>
+        </div>
+        <p class="poem-date">2026/06/04</p>
+      </div>
+      <p class="poem-intro">Were you ever really the love of my life?
+Or did I simply love you because you made me love life?
+How ephemeral a feeling can be.
+The glint of sun, and the fresh taste of youth.
+I still don’t know what to believe,
+Nor what the truth is.
+I’d like to believe that you were the love of my life.
+But deep down,
+I’m very much aware that it was because I felt alive. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-26">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 26</p>
+          <h2 class="poem-title">Sob(homage)</h2>
+        </div>
+        <p class="poem-date">2026/04/04</p>
+      </div>
+      <p class="poem-intro">Do not stand by my bed and sob;
+I cannot help you, I am not God.
+Find me in the wind that hits your cheeks,
+And the ground beneath your feet.
+I am the specks of dust in the air,
+And the flyaways in your hair.
+When you’ll find me, you’ll certainly know it is I. 
+I’ll encompass the world around you, 
+And be the only thing that never doubts you.
+Do not stand by my bed and weep, for I am gone,
+Release me please.
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-25">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 25</p>
+          <h2 class="poem-title">I can't let go</h2>
+        </div>
+        <p class="poem-date">2026/03/04</p>
+      </div>
+      <p class="poem-intro">I want to keep holding you even though I know you’ll eventually hurt me again.
+I find solace in your presence and your deep charcoal seeming laugh.
+I know how it feels to be burned by fire, but I keep risking my own wellbeing just to keep our conversations going.
+I might be insane – at least that’s how I feel when talking with you.
+Not that you try to mess with my head,
+But your voice drips with the sweetest of honeys and the richness of black gold.
+I know that you’re no good for me, 
+But I can’t seem to give you up. 
+I willingly throw myself into this never ending game of tug of war, 
+Except it’s my heart strings that are being pulled.
+I lied to you – you’re probably aware of it aren’t you?
+It might be presumptuous to say, 
+But I know that we both like each other. 
+It just hurts that you suppress the voice in your heart. 
+
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-24">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 24</p>
+          <h2 class="poem-title">Paralyzed</h2>
+        </div>
+        <p class="poem-date">2026/02/04</p>
+      </div>
+      <p class="poem-intro">Even if every nerve in my body were feeble and numb, I’d still be able to feel you
+Who am I, If not but a person who’s been inspired by you?
+It’s charming is it not? 
+To know that you have seen the same landscape that I am now seeing
+And walking down the same path I now cross
+Even if my body were weak and falling to pieces, I’d still only be able to feel you.
+I’m scared of the future and all that it holds, 
+But if I’m able to keep you close, 
+I’ll be able to move. 
+
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-23">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 23</p>
+          <h2 class="poem-title">Seasons</h2>
+        </div>
+        <p class="poem-date">2026/01/04</p>
+      </div>
+      <p class="poem-intro">You never got to know my other seasons because you liked me summer.
+You liked the tan of my skin, and the streaks of blonde in my hair. 
+You saw me smile brighter than the sun,
+and my dark brown eyes glimmering with the intensity of a thousand stars. 
+You heard my happiest laugh,
+and you sought out my most joyful tone. 
+You will never know my other seasons because you liked me summer. 
+You were privy to the red on my cheeks and the linen pants that I loved. 
+You missed my melancholy, and the many poems that fell out of my heart. 
+You were there for the seasons but only really paying attention in one.
+You knew me during one season, and now you’ll know me in none. 
+
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-22">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 22</p>
+          <h2 class="poem-title">Forgiveness</h2>
+        </div>
+        <p class="poem-date">2026/31/03</p>
+      </div>
+      <p class="poem-intro">I can say that I forgive you, but if I’m being honest,
+I dont. 
+I can try to understand your reasoning, I may make my best efforts, but I will never be able to reach your thoughts. 
+I don’t care that you feel bad, 
+And I most certainly won’t openly tell you my truth.
+Why accept an apology, 
+Why must I allow you to assuage your mind when you don’t really care about what’s going on in mine.
+I’ll say that I forgive you, but it isn’t for my own sake.
+I follow my religion – my God says to forgive,
+But you must know, 
+Whatever I tell you will most certainly be fake.
+
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-21">
+      <div class="poem-entry-header">
+        <div>
+          <p class="entry-number">Entry 21</p>
+          <h2 class="poem-title">Second</h2>
+        </div>
+        <p class="poem-date">2026/31/03</p>
+        </div>
+      <p class="poem-intro">Being the second child doesn’t make me any less important.
+I know that I didn’t win first place – you don’t have to rub it in. 
+Why does my position make me any less worthy?
+Culture this, culture that;
+We’re in a new day and age, your old trivial customs shouldn’t be as important as you make them out to be.
+If I’m being curt, I don’t care about any of it. 
+I would never make any child feel the way in which you all have made me. 
+I’m not a second rate; I am a human.
+I am a living person – don’t you realize my heart feels all? 
+I didn’t choose to be independent, you all forced it upon me.
+I had to grow, I had to thrive.
+I had to do it all on my own with no guidance. 
+Why preach about my rewards when you had nothing to do with my accomplishments?
+I hoped – every day and night, like a ritual, that things would change,
+They never did.
+I am the way I am because you all cast me aside. 
+I am the laterborn – it’s been made so apparent to me that it’s practically been etched into my skin and bones.  
+The blood in my veins and the cadence of my tone can be attributed to you, but not much else. 
+Don’t act like you care about me,
+And especially not when your initial option fails to meet your expectations. 
+You all know that I’d do anything to be treated the way the eldest has. 
+As you’ve told me: ‘The first is the light of the house.’
+If that is truly the case, then let me bask in darkness – cease to give me hope. 
+Cease to call my name. 
+    </div>
+
+
+          <div class="poem-entry" id="entry-20">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 20</p>
+          <h2 class="poem-title">Time</h2>
+        </div>
+        <p class="poem-date">2026/30/03</p>
+      </div>
+      <p class="poem-intro">There is so much to explore and so much to learn - yet I shy away, glued to a phone.
+My time is ticking, my world will soon cease to spin. 
+I want to learn every language and rejoice in a culture that is different from my own.
+Breathe, speak, feel. 
+I pine for a world that is outside of my reach - let me breathe, let me be me.
+Release me from the constraints of our frigid society, 
+Allow me to break free from the cage I reside in,
+After all, I am human.
+Leave me be -
+And I’ll be me. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-19">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 19</p>
+          <h2 class="poem-title">Carpe diem</h2>
+        </div>
+        <p class="poem-date">2026/24/03</p>
+      </div>
+      <p class="poem-intro">I thought that I had moved on
+I’ve tried countless times to forget it all but it lingers in my mind 
+I go on and on – im beginning to sound like a broken CD
+I call out to whoever might care to listen, recounting the same story repeatedly
+Carpe diem! 
+I want to live in the moment, 
+I’m almost ready to move on – soon I’ll be playing a new tune, 
+The tune of a heart set free.
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-18">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 18</p>
+          <h2 class="poem-title">Why?</h2>
+        </div>
+        <p class="poem-date">2026/23/03</p>
+      </div>
+      <p class="poem-intro">Just because I don’t smoke or drink doesn’t mean that I’m a good person 
+To you, it may seem so — to me, that isn’t the case 
+Being modern doesn’t mean that I’ve evolved — it shows that time has passed. 
+I am virtuous because I follow laws 
+But I am not a pious person after an argument with a sibling 
+I fit within societal constructs — which means I must be a good person 
+I don’t abide by that notion 
+You can be in jail but have a heart that blossoms with love and compassion 
+You can be a free man with a soul that reeks of wickedness and hate 
+Why do we judge by the cover and not what’s left unwritten? 
+
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-17">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 17</p>
+          <h2 class="poem-title">I am a product of my environment</h2>
+        </div>
+        <p class="poem-date">2026/23/03</p>
+      </div>
+      <p class="poem-intro">I have so much love to give because of all those that have loved me. 
+I am the face of two people who felt love. 
+I smile at strangers, I laugh at the silliest of things. 
+I give so much love because I learnt it through you. 
+You never explicitly taught me anything about it, but being in your company prepared me more than any rom-com ever could. 
+I offer so much love because I am a kindred spirit who seeks the best of life — most importantly, within my heart
+I am a product of my environment because I have loved you. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-16">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 16</p>
+          <h2 class="poem-title">Passion</h2>
+        </div>
+        <p class="poem-date">2026/23/03</p>
+      </div>
+      <p class="poem-intro">Writing is a passion, never a career.
+Pour out your soul on a piece of paper but be wary - it won’t help you succeed.
+Write and write, call out to whatever deity chooses to be pious 
+Being a scribe is a hobby, you’ll never make a name for yourself. 
+Study the language of your heart, try to break free from conformity.
+Paint a picture with your words, let them carry you away. 
+Being able to express yourself on a blank sheet of paper doesn’t make you a poet. 
+Yet I write. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-15">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 15</p>
+          <h2 class="poem-title">I want to write</h2>
+        </div>
+        <p class="poem-date">2026/22/03</p>
+      </div>
+      <p class="poem-intro">I want to write and I want it to be lasting
+Something of a keepsake, read on like a shakespearean play 
+Marriage and love have always been pushed into my mind from the outside 
+And now that I’m older, Im not quite sure how to live without it 
+I want to write and I want to show it 
+I care no longer for falsified sentimental trivialities 
+I am a poet
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-14">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 14</p>
+          <h2 class="poem-title">You knew</h2>
+        </div>
+        <p class="poem-date">2026/21/03</p>
+      </div>
+      <p class="poem-intro">How can I say it?
+How can I say I don’t care when I’ve made it so obvious that I do?
+You take advantage of my emotions and you’re completely aware of what you do
+I’ve liked you for far too long and I’m finally beginning to see it 
+A smile, a call, a message. 
+Quit taking advantage of my foolish heart
+I’m sick, and when I say that, 
+I mostly mean of you. 
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-13">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 13</p>
+          <h2 class="poem-title">Passenger seat</h2>
+        </div>
+        <p class="poem-date">2026/20/03</p>
+      </div>
+      <p class="poem-intro">My life has been lived in snapshots
+        Each blissful moment lasting no more than a second
+        I'm in the passenger seat watching it all pass by,
+        I should be the one at the wheel. 
+        I want to live freely; I want to be free.
+    </p>
+    </div>
+    <div class="poem-entry" id="entry-12">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 12</p>
+          <h2 class="poem-title">I care too much and I care too little</h2>
+        </div>
+        <p class="poem-date">2026/16/03</p>
+      </div>
+      <p class="poem-intro">I think and draw endless points of connection in my mind 
+A maze that never ceases to expand 
+I search everyday for a true meaning
+I shouldn’t have to let the scale dictate my life, 
+Yet I do.
+The constant gaze of eyes and the need to be perfect 
+Having flaws makes me feel like i belong in a circus
+Why can’t I wear the suit that other women seem to fit into?
+Why must I conform when I’ve always been told “just be you”
+I am me to me, or to you I would be you 
+If beauty is in the eye of the beholder, why is it that I’m not able to see it in myself? 
+    </div>
+
+          <div class="poem-entry" id="entry-11">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 11</p>
+          <h2 class="poem-title">My heart, my dearest heart</h2>
+        </div>
+        <p class="poem-date">2026/13/03</p>
+      </div>
+      <p class="poem-intro">My heart, my dearest heart
+I am nearer than you can ever imagine 
+I will be here waiting for you to come back 
+Sway and waver
+Regret and repent 
+I am here to listen and I am here to forgive 
+I was the one who brought you to life 
+I am the one who still holds and cherishes you
+Bask in my love, bask in my forgiveness 
+If you pray and believe, all is forgiven 
+      </p>
+    </div>
+
+          <div class="poem-entry" id="entry-10">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 10</p>
+          <h2 class="poem-title">I'm free</h2>
+        </div>
+        <p class="poem-date">2026/04/03</p>
+      </div>
+      <p class="poem-intro">I no longer feel the cold that I used to before 
+My senses have dulled but my taste for life has grown
+I grasp at the air with sharp breathes 
+And fresh tears fill the rim of my eyes
+I’m finally seeing the world in colour again 
+I thought I’d be stuck forever 
+darkness certainly does have a way of holding you
+I’m like a leaf soaring through the windy sky 
+And a bird who’s just begun to fly 
+I’m separating myself from all that has caused me harm 
+I’m laying on the ground holding close what has caused me sadness and what has caused me to mope
+I care no longer for the smile on your face or the curls in your hair 
+I feel alive again and it would never have been possible if you weren’t gone 
+      </p>
+    </div>
+
+         <div class="poem-entry" id="entry-09">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 09</p>
+          <h2 class="poem-title">Sorrow</h2>
+        </div>
+        <p class="poem-date">2026/10/02</p>
+      </div>
+      <p class="poem-intro">No matter how many sorrows you’ve left at my door,
+and no matter how many tears you’ve made glide down my face,
+I cannot forget you and I know that deep down,
+when I do, it’ll be far too late.
+I look up to the sky to see if you’ve decided to linger
+and I sniff at the fresh air outside to see if I might find your scent
+but I know that you’ve left me and I know that it wasn’t a mistake.
+I still feel sad even just remembering you
+but apparently that’s very important,
+especially when it comes to healing.
+I can lie and deny and try my hardest to avoid the concrete facts
+but it’s time to move forward and acknowledge that you won’t be coming back.
+      </p>
+    </div>
+   <div class="poem-entry" id="entry-08">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 08</p>
+          <h2 class="poem-title">I'm here</h2>
+        </div>
+        <p class="poem-date">2026/15/01</p>
+      </div>
+      <p class="poem-intro">I live in the cold and frigid air
+I mess around with your feelings
+And I leave you feeling uncertain
+I may not be important but I know you care
+I bring the red to your cheeks
+And have a radiance that you can’t seem to resist 
+I feel like a warm embrace
+I hug you tight when you’re alone
+I’ll be by your side till you’re reduced to a memory 
+I feel for you more than you’ll ever know 
+I’m both your sorrows and your nostalgia,
+Yet you can’t quite tell which. 
+You can forget me and disregard me, 
+But I’ll never leave because
+Even though you never say it, 
+You’ll never be able to let me go. 
+      </p>
+    </div>
+
+      <div class="poem-entry" id="entry-07">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 07</p>
+          <h2 class="poem-title">Spring</h2>
+        </div>
+        <p class="poem-date">2026/14/01</p>
+      </div>
+      <p class="poem-intro">The sun is shining down on me
+And kissing away the many wounds I’ve endured throughout the seasons.
+The cold that we call winter is slowly slipping away 
+And the promise of spring brings along the hope of life and rejuvenation.
+I could call this my second chance but who knows if I have it in me to love you through yet another spring.
+You’ve already taken up so much of my life,
+Which is never something I’ll regret,
+but with the promise of new beginnings also comes the promise of finding oneself; 
+Myself. 
+      </p>
+    </div>
+
+    <div class="poem-entry" id="entry-06">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 06</p>
+          <h2 class="poem-title">Youth</h2>
+        </div>
+        <p class="poem-date">2026/14/01</p>
+      </div>
+      <p class="poem-intro">When the end came it felt abrupt,
+but all the while it was not that big of a shock.
+I don’t know what exactly it was that I was expecting.
+A myriad of jumbled words?
+A meaningless sentence mean’t to bring on comfort?
+The tang of metal left on my palate?
+Or the strong feeling of being punched in the stomach?
+I still wonder which of those I was expecting,
+and which of those would’ve been a better alternative?
+I knew the ending was impending yet it still feels so surreal.
+I’ve been told time and time again that all good things come to an end,
+I just never knew that it would be applicable to us.
+      </p>
+    </div>
+
+    <div class="poem-entry" id="entry-05">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 05</p>
+          <h2 class="poem-title">One day without you</h2>
+        </div>
+        <p class="poem-date">2026/07/01</p>
+      </div>
+      <p class="poem-intro">One day without you and my heart’s been swallowed whole.
+My stomach awry, 
+My hair disheveled.
+How would you know my feelings; especially when I had not told you so.
+One day without you and my heart’s been swallowed whole. 
+You say it’s not reciprocated, so I’ll just let it go. 
+My bed is warm, and truth is in the air.
+I have to face the facts, even if they’re too difficult to bear. 
+I know that I’m strong, even if I may not seem so, 
+Which is why, I’ve vowed to let you go. 
+      </p>
+    </div>
+
+    <div class="poem-entry" id="entry-04">
+      <div class="poem-entry-header">
+        <div>
+      <p class="entry-number">Entry 04</p>
+          <h2 class="poem-title">Sentiments</h2>
+        </div>
+        <p class="poem-date">2024/24/09</p>
+      </div>
+      <p class="poem-intro">We don't talk much, but when we do, it's lasting
+        I don't know what type of person you are
+        Perhaps it's the thrill of the unknown,
+        Perhaps it's the fact that I'm only only able to see what I want to 
+        I always seem to be thinking of you
+        I know it isn't a reciprocated sentiment as you always seem to have others on your mind
+        I want you to know how I feel, but I know what will happen next
+        The thrill of being liked back isn't the same as the thrill that comes with having a crush,
+        If I know that you like me back, I'll just give up
+        My reasoning isn't logival but it's the way my brain works.
+        I want to be loved, in fact, I crave it
+        But deep down, I know that I'm not made for it
+        I run around in my mind thinking of a future with another person when I know that it isn't likely to happen
+        I know that I'm loveable but I feel as though I'm not
+        My body is imperfect with many blemishes, my heart is warm but my insides are a mess, my dreams are sweet, but my brain is rotten
+        I feel as though I'm stuck in a standstill where I might very well dwell forever
+        Perhaps this is just for now, perhaps I'll grow to change,
+        but I know that deep down, I'll never be able to accept another persons love.
+      </p>
+    </div>
+
+     <div class="poem-entry" id="entry-03">
+      <div class="poem-entry-header">
+        <div>
+          <p class="entry-number">Entry 03</p>
+          <h2 class="poem-title">Fate</h2>
+        </div>
+        <p class="poem-date">2023/18/04</p>
+      </div>
+      <p class="poem-intro">Everytime you shoot me a message, my heart shakes
+        My palms sweat and a huge smile forms on my face
+        I don't know how you feel when I do the same
+        Perhaps you just answer
+        All to save face
+        Although were separated by a screen
+        I feel closer to you than ever
+        Your words keep me warm during a long night in december
+        I wait and wait for you to reply
+        A never ending conversation 
+        Never left with goodbyes
+        I wonder if you feel the same 
+        If your heart also beats
+        You can compare it to sounds
+        The rustling of the wind, the light tapping of feet on the street
+        I wonder if you will ever fancy me the way that I do you
+        A budding romance, a childhood fantasy
+        Perhaps you won't find your feelings to be the same
+        It won't make a difference, nothing will change
+        I will continue to watch you from afar
+        Watching you enjoy your life day to day
+        A blossoming love
+        The red strings of our fate.
+      </p>
+    </div>
+    <div class="poem-entry" id="entry-02">
+      <div class="poem-entry-header">
+        <div>
+          <p class="entry-number">Entry 02</p>
+          <h2 class="poem-title">Colour</h2>
+        </div>
+        <p class="poem-date">2023/31/03</p>
+      </div>
+      <p class="poem-intro">When I look at you, the entire world fades.
+        You are the only visible colour in my monochrome world.
+        One single glance at you and the shielded walls around my heart drop as if they were never there.
+        I wish I could ask you to stay by my side.
+        I wish I could ask you to be mine. 
+        The words melt on my tongue before I even get the chance to utter them. 
+        The world continues to spin,
+        You still seem unfazed.
+        I hope one day you'll come to realize my feelings for you will forever stay the same, but for now, with every passing moment
+        I shall remain your Juliette
+        Awaiting for you to take your rightful place
+      </p>
+    </div>
+    <div class="poem-entry" id="entry-01">
+      <div class="poem-entry-header">
+        <div>
+          <p class="entry-number">Entry 01</p>
+          <h2 class="poem-title">Presence</h2>
+        </div>
+        <p class="poem-date">2023/23/02</p>
+      </div>
+      <p class="poem-intro">I often find myself staring at you
+        Your presence is one that lingers
+        Although you don't speak, your voice is one that I often hear
+        Your smile is bright and can illuminate a room
+        Oh, how I long to be near you
+        My heart flutters when I pass by you
+        You may not notice but I really, really, really like you
+        Maybe it's better if I keep you out of the loop.
+        Maybe it's better if I just erase my feelings for you
+        Someday I hope you realize that they will forever stay the same 
+        I hope you take the time to remember my name 
+        Maybe this is just a failed attempt at a love letter
+        However, you shall remain my muse
+        Maybe just for now
+        Maybe forever
+      </p>
+    </div>
+    <p class="back-to-top"><a href="#top">Back to top</a></p>
+    <img class="cat-divider" src="../cat-div.png" alt="">
+  </main>
+
+  <div class="ipod-container">
+    <div class="ipod-screen">
+      <div class="screen-header" id="ipod-status">Paused</div>
+      <img id="album-art" class="album-art" src="../music/sugar.jpeg" alt="Album Cover">
+      <div class="track-info">
+        <div id="song-title" class="song-title">Sugar</div>
+        <div id="artist-name" class="artist-name">BROCKHAMPTON</div>
+      </div>
+    </div>
+
+    <div class="click-wheel">
+      <button class="wheel-btn menu" onclick="togglePlay()">MENU</button>
+      <button class="wheel-btn prev" onclick="prevSong()">❮❮</button>
+      <button class="wheel-btn next" onclick="nextSong()">❯❯</button>
+      <button class="wheel-btn play-pause" onclick="togglePlay()">▶❚❚</button>
+      <div class="center-button" onclick="togglePlay()"></div>
+    </div>
+  </div>
+
+  <audio id="audio-player" preload="auto"></audio>
+  <script src="../music-player.js?v=playback-resume-v4"></script>
+  <div class="popup" id="not-written-popup" role="dialog" aria-modal="true" aria-labelledby="popup-title">
+    <div class="popup-box">
+      <button class="popup-close" id="popup-close" type="button" aria-label="Close">&times;</button>
+      <p id="popup-title">to be written...</p>
+    </div>
+  </div>
+  <script>
+    const main = document.querySelector("main");
+    const backToTop = main.querySelector(".back-to-top");
+    const poemEntries = [...main.querySelectorAll(".poem-entry")];
+    const entryFragment = document.createDocumentFragment();
+    const availableEntries = {};
+    const seenEntryIds = new Set();
+
+    function makeCollapsibleEntry(entry) {
+      const entryHeader = entry.querySelector(":scope > .poem-entry-header");
+      const title = entryHeader.querySelector(".poem-title");
+      const entryNumber = entryHeader.querySelector(".entry-number");
+      const date = entryHeader.querySelector(".poem-date");
+      const details = document.createElement("details");
+      details.className = entry.className;
+      details.id = entry.id;
+
+      const summary = document.createElement("summary");
+      summary.className = "poem-entry-header";
+      const titleGroup = document.createElement("div");
+      titleGroup.className = "poem-entry-title-group";
+      const heart = document.createElement("span");
+      heart.className = "poem-entry-heart";
+      heart.setAttribute("aria-hidden", "true");
+      titleGroup.append(heart, title);
+
+      const metadata = document.createElement("div");
+      metadata.className = "poem-entry-metadata";
+      if (entryNumber) metadata.appendChild(entryNumber);
+      if (date) metadata.appendChild(date);
+      summary.append(titleGroup, metadata);
+      details.appendChild(summary);
+
+      [...entry.childNodes].forEach((child) => {
+        if (child !== entryHeader) details.appendChild(child);
+      });
+      entry.replaceWith(details);
+      return details;
+    }
+
+    main.appendChild(backToTop);
+    poemEntries.forEach((entry) => {
+      if (seenEntryIds.has(entry.id)) {
+        entry.remove();
+        return;
+      }
+      seenEntryIds.add(entry.id);
+      availableEntries[Number(entry.id.replace("entry-", ""))] = entry.id;
+      entryFragment.appendChild(makeCollapsibleEntry(entry));
+    });
+    main.insertBefore(entryFragment, backToTop);
+
+    const popup = document.getElementById("not-written-popup");
+    const searchInput = document.getElementById("entry-search");
+
+    function openEntry(number) {
+      const entryId = availableEntries[number];
+      if (entryId) {
+        popup.classList.remove("is-open");
+        const entry = document.getElementById(entryId);
+        entry.open = true;
+        requestAnimationFrame(() => entry.scrollIntoView({ behavior: "auto", block: "center" }));
+        return;
+      }
+      popup.classList.add("is-open");
+    }
+
+    document.getElementById("entry-search-button").addEventListener("click", () => {
+      const number = Number(searchInput.value);
+      openEntry(number);
+    });
+
+    searchInput.addEventListener("keydown", (event) => {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        document.getElementById("entry-search-button").click();
+      }
+    });
+
+    document.getElementById("popup-close").addEventListener("click", () => popup.classList.remove("is-open"));
+    popup.addEventListener("click", (event) => {
+      if (event.target === popup) popup.classList.remove("is-open");
+    });
+  </script>
+  <script>
+    (() => {
+      const mainElement = document.querySelector("main");
+      const dividers = mainElement.querySelectorAll(".cat-divider");
+      if (dividers.length > 1) {
+        mainElement.appendChild(dividers[dividers.length - 1]);
+        mainElement.appendChild(mainElement.querySelector(".back-to-top"));
+      }
+    })();
+  </script>
+</body>
+</html>
