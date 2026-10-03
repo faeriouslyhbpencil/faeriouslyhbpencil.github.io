@@ -104,8 +104,7 @@ audio.addEventListener("timeupdate", () => {
   }
 });
 audio.addEventListener("ended", () => {
-  shouldResumePlayback = false;
-  savePlaybackState(false);
+  changeTrack(1);
 });
 audio.addEventListener("error", () => { ipodStatus.textContent = "Audio unavailable"; });
 playbackChannel?.addEventListener("message", (event) => {
