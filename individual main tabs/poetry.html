@@ -497,7 +497,7 @@
       }
     }
   </style>
-  <link rel="stylesheet" href="../nested-pages.css?v=home-wordmark">
+  <link rel="stylesheet" href="../nested-pages.css?v=player-layout-v1">
 </head>
 <body id="top">
   <header class="site-header">
@@ -1893,12 +1893,25 @@ Which is why, I’ve vowed to let you go.
 
       const entry = document.getElementById(entryId);
       entry.addEventListener("toggle", () => {
+        if (entry.open && !unlockedEntries.has(entryNumber)) {
+          entry.open = false;
+          requestEntryAccess(entryNumber, entry, false);
+          return;
+        }
         if (!entry.open) unlockedEntries.delete(entryNumber);
       });
       entry.querySelector(":scope > summary").addEventListener("click", (event) => {
         if (unlockedEntries.has(entryNumber)) return;
         event.preventDefault();
         requestEntryAccess(entryNumber, entry, false);
+      });
+    });
+
+    window.addEventListener("pageshow", () => {
+      protectedEntryPasscodes.forEach((_, entryNumber) => {
+        const entry = document.getElementById(availableEntries[entryNumber]);
+        if (entry) entry.open = false;
+        unlockedEntries.delete(entryNumber);
       });
     });
 
