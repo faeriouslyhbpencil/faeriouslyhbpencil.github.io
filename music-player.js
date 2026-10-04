@@ -21,6 +21,102 @@ let currentAudioObjectUrl = null;
 let shouldResumePlayback = false;
 let lastProgressSaveAt = 0;
 
+const menuButton = document.querySelector(".wheel-btn.menu");
+const playlistMenuStyle = document.createElement("style");
+playlistMenuStyle.textContent = `
+  .playlist-menu {
+    box-sizing: border-box;
+    width: min(360px, calc(100vw - 32px));
+    max-height: min(80vh, 540px);
+    padding: 16px;
+    border: 2px solid #5ab2f5;
+    border-radius: 10px;
+    background: #eff6ff;
+    color: #1e3a8a;
+    font-family: inherit;
+  }
+  .playlist-menu::backdrop { background: rgba(15, 23, 42, 0.45); }
+  .playlist-menu-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 12px;
+  }
+  .playlist-menu-title { margin: 0; font-size: 1.1rem; }
+  .playlist-menu-close {
+    border: 0;
+    background: transparent;
+    color: inherit;
+    cursor: pointer;
+    font: inherit;
+    font-size: 1.4rem;
+  }
+  .playlist-menu-tracks { display: grid; gap: 6px; }
+  .playlist-menu-track {
+    display: grid;
+    gap: 2px;
+    width: 100%;
+    padding: 9px 10px;
+    border: 1px solid #93c5fd;
+    border-radius: 6px;
+    background: #ffffff;
+    color: #1e3a8a;
+    cursor: pointer;
+    font: inherit;
+    text-align: left;
+  }
+  .playlist-menu-track:hover,
+  .playlist-menu-track[aria-current="true"] { background: #dbeafe; }
+  .playlist-menu-artist { font-size: 0.85em; }
+`;
+document.head.appendChild(playlistMenuStyle);
+
+const playlistMenu = document.createElement("dialog");
+playlistMenu.className = "playlist-menu";
+playlistMenu.setAttribute("aria-labelledby", "playlist-menu-title");
+const playlistMenuHeader = document.createElement("div");
+playlistMenuHeader.className = "playlist-menu-header";
+const playlistMenuTitle = document.createElement("h2");
+playlistMenuTitle.className = "playlist-menu-title";
+playlistMenuTitle.id = "playlist-menu-title";
+playlistMenuTitle.textContent = "Choose a song";
+const playlistMenuClose = document.createElement("button");
+playlistMenuClose.className = "playlist-menu-close";
+playlistMenuClose.type = "button";
+playlistMenuClose.setAttribute("aria-label", "Close song list");
+playlistMenuClose.textContent = "×";
+playlistMenuHeader.append(playlistMenuTitle, playlistMenuClose);
+const playlistMenuTracks = document.createElement("div");
+playlistMenuTracks.className = "playlist-menu-tracks";
+const playlistMenuButtons = playlist.map((track, index) => {
+  const button = document.createElement("button");
+  button.className = "playlist-menu-track";
+  button.type = "button";
+  button.setAttribute("aria-current", index === currentTrackIndex ? "true" : "false");
+  const title = document.createElement("span");
+  title.textContent = track.title;
+  const artist = document.createElement("span");
+  artist.className = "playlist-menu-artist";
+  artist.textContent = track.artist;
+  button.append(title, artist);
+  button.addEventListener("click", () => {
+    playlistMenu.close();
+    changeTrack(index - currentTrackIndex);
+  });
+  playlistMenuTracks.appendChild(button);
+  return button;
+});
+playlistMenu.append(playlistMenuHeader, playlistMenuTracks);
+document.body.appendChild(playlistMenu);
+menuButton?.removeAttribute("onclick");
+menuButton?.addEventListener("click", () => playlistMenu.showModal());
+playlistMenuClose.addEventListener("click", () => playlistMenu.close());
+playlistMenu.addEventListener("click", (event) => {
+  if (event.target === playlistMenu) playlistMenu.close();
+});
+playlistMenu.addEventListener("close", () => menuButton?.focus());
+
 function readPlaybackState() {
   try {
     const savedState = JSON.parse(sessionStorage.getItem(playbackStorageKey));
@@ -58,6 +154,9 @@ function loadTrack(index) {
   songTitle.textContent = track.title;
   artistName.textContent = track.artist;
   albumArt.src = new URL(track.cover, musicDirectory).href;
+  playlistMenuButtons.forEach((button, trackIndex) => {
+    button.setAttribute("aria-current", trackIndex === index ? "true" : "false");
+  });
 }
 
 function togglePlay() {
