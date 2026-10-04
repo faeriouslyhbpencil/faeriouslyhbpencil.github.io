@@ -22,100 +22,95 @@ let shouldResumePlayback = false;
 let lastProgressSaveAt = 0;
 
 const menuButton = document.querySelector(".wheel-btn.menu");
+const ipodScreen = document.querySelector(".ipod-screen");
+let playlistMenuOpen = false;
 const playlistMenuStyle = document.createElement("style");
 playlistMenuStyle.textContent = `
-  .playlist-menu {
-    box-sizing: border-box;
-    width: min(360px, calc(100vw - 32px));
-    max-height: min(80vh, 540px);
-    padding: 16px;
-    border: 2px solid #5ab2f5;
-    border-radius: 10px;
-    background: #eff6ff;
-    color: #1e3a8a;
-    font-family: inherit;
-  }
-  .playlist-menu::backdrop { background: rgba(15, 23, 42, 0.45); }
-  .playlist-menu-header {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    gap: 12px;
-    margin-bottom: 12px;
-  }
-  .playlist-menu-title { margin: 0; font-size: 1.1rem; }
-  .playlist-menu-close {
-    border: 0;
-    background: transparent;
-    color: inherit;
-    cursor: pointer;
-    font: inherit;
-    font-size: 1.4rem;
-  }
-  .playlist-menu-tracks { display: grid; gap: 6px; }
-  .playlist-menu-track {
-    display: grid;
-    gap: 2px;
+  .ipod-screen.playlist-open #album-art,
+  .ipod-screen.playlist-open .track-info { display: none; }
+  .playlist-screen {
+    display: none;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
     width: 100%;
-    padding: 9px 10px;
-    border: 1px solid #93c5fd;
-    border-radius: 6px;
-    background: #ffffff;
-    color: #1e3a8a;
-    cursor: pointer;
-    font: inherit;
+    overflow: hidden;
     text-align: left;
   }
-  .playlist-menu-track:hover,
-  .playlist-menu-track[aria-current="true"] { background: #dbeafe; }
-  .playlist-menu-artist { font-size: 0.85em; }
+  .ipod-screen.playlist-open .playlist-screen { display: flex; }
+  .playlist-screen-title {
+    flex: 0 0 auto;
+    margin: 0 0 3px;
+    color: #1e3a8a;
+    font-size: 10px;
+    font-weight: bold;
+  }
+  .playlist-screen-tracks {
+    display: grid;
+    flex: 1;
+    gap: 1px;
+    min-height: 0;
+    overflow-y: auto;
+    width: 100%;
+  }
+  .playlist-screen-track {
+    display: grid;
+    gap: 1px;
+    width: 100%;
+    padding: 3px 2px;
+    border: 0;
+    border-bottom: 1px solid #bfdbfe;
+    background: transparent;
+    color: #1e3a8a;
+    cursor: pointer;
+    font: inherit;
+    font-size: 10px;
+    text-align: left;
+  }
+  .playlist-screen-track[aria-current="true"] { background: #dbeafe; }
+  .playlist-screen-artist { color: #475569; font-size: 9px; }
 `;
 document.head.appendChild(playlistMenuStyle);
 
-const playlistMenu = document.createElement("dialog");
-playlistMenu.className = "playlist-menu";
-playlistMenu.setAttribute("aria-labelledby", "playlist-menu-title");
-const playlistMenuHeader = document.createElement("div");
-playlistMenuHeader.className = "playlist-menu-header";
-const playlistMenuTitle = document.createElement("h2");
-playlistMenuTitle.className = "playlist-menu-title";
-playlistMenuTitle.id = "playlist-menu-title";
-playlistMenuTitle.textContent = "Choose a song";
-const playlistMenuClose = document.createElement("button");
-playlistMenuClose.className = "playlist-menu-close";
-playlistMenuClose.type = "button";
-playlistMenuClose.setAttribute("aria-label", "Close song list");
-playlistMenuClose.textContent = "×";
-playlistMenuHeader.append(playlistMenuTitle, playlistMenuClose);
-const playlistMenuTracks = document.createElement("div");
-playlistMenuTracks.className = "playlist-menu-tracks";
+const playlistScreen = document.createElement("div");
+playlistScreen.className = "playlist-screen";
+const playlistScreenTitle = document.createElement("div");
+playlistScreenTitle.className = "playlist-screen-title";
+playlistScreenTitle.textContent = "Songs";
+const playlistScreenTracks = document.createElement("div");
+playlistScreenTracks.className = "playlist-screen-tracks";
 const playlistMenuButtons = playlist.map((track, index) => {
   const button = document.createElement("button");
-  button.className = "playlist-menu-track";
+  button.className = "playlist-screen-track";
   button.type = "button";
   button.setAttribute("aria-current", index === currentTrackIndex ? "true" : "false");
   const title = document.createElement("span");
   title.textContent = track.title;
   const artist = document.createElement("span");
-  artist.className = "playlist-menu-artist";
+  artist.className = "playlist-screen-artist";
   artist.textContent = track.artist;
   button.append(title, artist);
   button.addEventListener("click", () => {
-    playlistMenu.close();
+    setPlaylistMenuOpen(false);
     changeTrack(index - currentTrackIndex);
   });
-  playlistMenuTracks.appendChild(button);
+  playlistScreenTracks.appendChild(button);
   return button;
 });
-playlistMenu.append(playlistMenuHeader, playlistMenuTracks);
-document.body.appendChild(playlistMenu);
+playlistScreen.append(playlistScreenTitle, playlistScreenTracks);
+ipodScreen.appendChild(playlistScreen);
+function setPlaylistMenuOpen(isOpen) {
+  playlistMenuOpen = isOpen;
+  ipodScreen.classList.toggle("playlist-open", isOpen);
+  ipodStatus.textContent = isOpen
+    ? "Song List"
+    : audio.error
+      ? "Audio unavailable"
+      : audio.paused ? "Paused" : "Now Playing";
+}
+
 menuButton?.removeAttribute("onclick");
-menuButton?.addEventListener("click", () => playlistMenu.showModal());
-playlistMenuClose.addEventListener("click", () => playlistMenu.close());
-playlistMenu.addEventListener("click", (event) => {
-  if (event.target === playlistMenu) playlistMenu.close();
-});
-playlistMenu.addEventListener("close", () => menuButton?.focus());
+menuButton?.addEventListener("click", () => setPlaylistMenuOpen(!playlistMenuOpen));
 
 function readPlaybackState() {
   try {
