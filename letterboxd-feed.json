@@ -1,5 +1,13 @@
 [
   {
+    "title": "Coraline",
+    "year": "2009",
+    "watchedDate": "2026-11-04",
+    "score": 4.0,
+    "filmUrl": "https://letterboxd.com/0bl1vious/film/coraline/",
+    "descriptionHtml": " <p><img src=\"https://a.ltrbxd.com/resized/film-poster/4/2/7/7/9/42779-coraline-0-600-0-900-crop.jpg?v=b792483e2a\"/></p> <p>Classic</p> "
+  },
+  {
     "title": "Ma",
     "year": "2019",
     "watchedDate": "2026-10-28",
@@ -390,13 +398,5 @@
     "score": 3.0,
     "filmUrl": "https://letterboxd.com/0bl1vious/film/you-me-tuscany/",
     "descriptionHtml": " <p><img src=\"https://a.ltrbxd.com/resized/film-poster/1/3/3/2/2/7/6/1332276-you-me-tuscany-0-600-0-900-crop.jpg?v=37c2adcef0\"/></p> <p>Watched on Monday April 13, 2026.</p> "
-  },
-  {
-    "title": "Star Wars: Episode II – Attack of the Clones",
-    "year": "2002",
-    "watchedDate": "2026-04-07",
-    "score": 4.0,
-    "filmUrl": "https://letterboxd.com/0bl1vious/film/star-wars-episode-ii-attack-of-the-clones/",
-    "descriptionHtml": " <p><img src=\"https://a.ltrbxd.com/resized/film-poster/5/0/7/1/0/50710-star-wars-episode-ii-attack-of-the-clones-0-600-0-900-crop.jpg?v=cdb8caab10\"/></p> <p>Watched on Tuesday April 7, 2026.</p> "
   }
 ]
